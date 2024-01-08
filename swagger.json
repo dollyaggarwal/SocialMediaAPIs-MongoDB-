@@ -1,0 +1,136 @@
+{
+    "openapi":"3.0.0",
+    "info": {
+         "version":"1.0.0",
+         "description":"API for Social Networking application",
+         "title":"Social Networking Platform API"
+    },
+    "servers":[
+        {
+            "url":"https://socialmediahandlerapis.onrender.com"
+        }
+    ],
+    "components":{
+        "securitySchemes":{
+            "JWT":{
+                "in":"header",
+                "name":"Authorization",
+                "type":"apiKey"
+            }
+        }
+    },
+    "paths": {
+
+        "/api/posts":{
+            "get":{
+            "tags":["Posts"],
+            "summary":"Get Posts",
+            "description":"User will get all posts",
+            "security":[ {"JWT":{}} ],
+            "responses":{
+                "200":{
+                    "description":"OK"
+                },
+                "401":{
+                    "description":"Unauthorized"
+                }
+          }
+       }
+    },
+
+    "/api/comments/{id}": {
+        "get": {
+            "tags": ["Comments"],
+            "summary": "Get Comment by PostID",
+            "description": "Retrieve a specific comment by its unique identifier.",
+            "security": [{"JWT": {}}],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of the post to retrieve comment.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Success: Retrieved the specified comment."
+                },
+                "401": {
+                    "description": "Unauthorized: Access token is missing or invalid."
+                },
+                "404": {
+                    "description": "Not Found: Comment with the provided ID does not exist."
+                }
+            }
+        }
+    },
+
+    "/api/likes/{id}": {
+        "get": {
+            "tags": ["Likes"],
+            "summary": "Get like by PostID",
+            "description": "Retrieve a specific like by its unique identifier.",
+            "security": [{"JWT": {}}],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of the post to retrieve like.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Success: Retrieved the specified like."
+                },
+                "401": {
+                    "description": "Unauthorized: Access token is missing or invalid."
+                },
+                "404": {
+                    "description": "Not Found: like with the provided ID does not exist."
+                }
+            }
+        }
+    },
+        "/api/users/signin":{
+            "post":{
+            "tags":["Users"],
+            "summary":"Login",
+            "description":"User login to get token",
+            "requestBody":{
+                "content":
+                {
+                    "application/json":{
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "email":{
+                                    "type":"string"
+                                },
+                                "password":{
+                                    "type":"string"
+                            }
+                    }
+                }
+            }
+      }
+   },
+        "responses":{
+            "200":{
+                "description":"OK"
+            },
+            "400":{
+                "description":"Incorrect Credentials"
+             }
+          }
+       }
+    }
+  }
+}
