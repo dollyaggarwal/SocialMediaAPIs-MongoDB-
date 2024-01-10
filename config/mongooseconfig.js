@@ -8,9 +8,7 @@ console.log(url)
 export const connectUsingMongoose =  async() =>{
     try{
     await mongoose.connect(url, {
-            dbName:"SocialMedia",
-            useNewUrlParser:true,
-            useUnifiedTopology:true       
+            dbName:"SocialMedia"     
     });
     console.log("Mongodb connected using mongoose");
 }catch(err){
