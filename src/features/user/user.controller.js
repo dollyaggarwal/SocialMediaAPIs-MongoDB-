@@ -25,12 +25,11 @@ export class UserController{
 
    async signUp(req, res,next){
     try{
-        const {name, emailID,password} = req.body;
-     
-        const hashedPassword = await bcrypt.hash(password, 12);
-      
-       const user = await this.userRepository.signUp(name, emailID, hashedPassword);
-            return res.status(201).send(user);
+        const {name, emailID,password,gender} = req.body;
+        const avatar = req.file.filename;
+       const hashedPassword = await bcrypt.hash(password, 12);
+       const user = await this.userRepository.signUp(name, emailID, hashedPassword, gender,avatar);
+       return res.status(201).send(user);
     }catch(err){
       next(err);
     }
@@ -86,5 +85,43 @@ async signout(req, res) {
 
   return res.status(200).send('Logged out successfully');
 }
+
+async getDetailsByUser(req,res){
+  try{
+    const id = req.params.id;
+    const userID = req.userID;
+    const user = await this.userRepository.getDetails(id,userID);  
+    return res.status(200).send(user);
+  }catch(err){
+    console.log(err);
+    return res.status(200).send("Something went wrong");
+    }
+  }
+
+  async getAllUserDetails(req, res){
+    try{
+
+      const allUsers = await this.userRepository.getAllDetails();
+      return res.status(200).send(allUsers);
+
+    }catch(err){
+    console.log(err);
+    return res.status(200).send("Something went wrong");
+    }
+  }
+
+  async updateUserDetails(req, res){
+    try{
+    const {name,gender} = req.body;
+    const id = req.params.id;
+    const userID = req.userID;
+    const avatar = req.file.filename;
+    const updatedUserDetails = await this.userRepository.updateDetails(id,userID,name, gender,avatar);
+    return res.status(200).send(updatedUserDetails);
+    }catch(err){
+      console.log(err);
+      return res.status(200).send("Something went wrong");
+      }
+  }
 }
 export default blacklistedTokens;

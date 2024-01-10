@@ -18,7 +18,7 @@ export default class PostRepository{
             await likePost.save();
             const commentPost = await CommentModel.create({postID:savedPost._id, comments:[]});
             await commentPost.save();
-            console.log(commentPost);
+         
            await savedPost.updateOne({_id:savedPost._id, likeID:likePost._id, commentID:commentPost._id});
             await savedPost.save();
             return savedPost;
@@ -36,7 +36,7 @@ export default class PostRepository{
             throw new ApplicationError('Something went wrong in the database', 500);
         }
     }
-    async getAll(userID){
+    async getAll(){
         try{
            return await PostModel.find();
         }catch(err){

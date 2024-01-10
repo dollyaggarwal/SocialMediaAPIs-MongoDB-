@@ -7,17 +7,6 @@ export default  class PostController{
     this.postRepository =  new PostRepository();
   }
 
-    getPost(req, res){
-        const postID = req.params.id;
-        const post = PostModel.get(postID);
-        if(!post){
-          res.status(404).send("Post not found");
-        }
-        else{
-          return res.status(200).send(post);
-        }
-    }
-
     async getPostByUser(req, res){ 
       try{
         const userID = req.userID;
@@ -72,12 +61,6 @@ export default  class PostController{
       res.status(500).send("Something went wrong");
    }
 }
-
-    filterPost(req, res) {
-        const caption = req.query.caption;
-        const result = PostModel.filter(caption);
-        res.status(200).send(result);
-    }
 
    async deletePost(req, res){
     try{
