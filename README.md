@@ -2,6 +2,10 @@
 
 This project implements a RESTful API for a social media platform using Node.js, Express.js, and MongoDB. Below are the key features and technologies used in this project:
 
+## Postman Documentation: 
+
+https://documenter.getpostman.com/view/31300898/2s9YyzcxpG
+
 ## Features
 
 - **Authentication**: Implemented JWT token-based authentication for secure user login.
